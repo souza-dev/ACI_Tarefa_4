@@ -86,12 +86,12 @@ for indice in range(len(ids_test)):
     id_LBPH, confianca_LBPH = LBPHFace.predict(faces_test[indice])
     df = df.append({
         'ID_CORRETO': names[indice], 
-        'ID_PRED_EF': id_EF, 
-        'CONFIAN_EF': confianca_EF,
-        'ID_PRED_FF': id_FF, 
-        'CONFIAN_FF': confianca_FF,
-        'ID_PRED_LBPH': id_LBPH, 
-        'CONFIAN_LBPH': confianca_LBPH,
+        'ID_PRED_EF': int(id_EF), 
+        'CONFIAN_EF': round(confianca_EF, 2),
+        'ID_PRED_FF': int(id_FF), 
+        'CONFIAN_FF': round(confianca_FF, 2),
+        'ID_PRED_LBPH': int(id_LBPH), 
+        'CONFIAN_LBPH': round(confianca_LBPH, 2),
         },         
         ignore_index=True)
     if id_EF == ids_test[indice]:
@@ -107,6 +107,6 @@ print(df)
 print(pathFile+'/out.csv')
 df.to_csv(pathFile+'/out.csv', index=False)
 print('Acurácias')
-print(f'EigenFaces: {corretosEF/len(ids_test)}')
-print(f'FisherFaces: {corretosFF/len(ids_test)}')
-print(f'LBPHFaces: {corretosLBPH/len(ids_test)}')
+print('EigenFaces: {:.2f}%'.format(100*corretosEF/len(ids_test)))
+print('FisherFaces: {:.2f}%'.format(100*corretosFF/len(ids_test)))
+print('LBPHFaces: {:.2f}%'.format(100*corretosLBPH/len(ids_test)))
